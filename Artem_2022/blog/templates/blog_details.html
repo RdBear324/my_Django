@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<div class="container ">
+    <h1>{{ post.title }}</h1>
+    <small>
+        {{post.created_on|date:'d-m-Y H:i'}}
+    </small>
+    <div>{{ post.body}}</div>
+</div>
+{% endblock %}

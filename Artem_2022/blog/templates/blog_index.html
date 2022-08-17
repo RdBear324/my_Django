@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block page_content %}
+<div class="container">
+    <h1>Блог</h1>
+    <hr>
+    {% for post in posts%}
+    <h2><a href="{% url 'blog_details' post.pk %}">{{ post.title }}</a></h2>
+    <small>
+        {{post.created_on|date:'d-m-Y H:i'}}
+        Категории:
+        {% for category in post.categories.all %}
+        <a href="{% url 'blog_details' post.pk %}">
+            {{ category.name }}
+        </a>
+        {% endfor %}
+    </small>
+    <p>{{ post.body | slice:":50"}}...</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
