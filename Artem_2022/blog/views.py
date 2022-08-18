@@ -25,3 +25,12 @@ def blog_category(request):
         'categories': categories
     }
     return render(request, 'blog_category.html', context)
+
+
+def category_detail(request, pk):
+    category = Category.object.get(pk=pk)
+    context = {
+        'category' : category
+    }
+    return render(request, 'blog_detail.html', context)
+

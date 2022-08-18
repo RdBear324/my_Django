@@ -9,7 +9,7 @@
         {{post.created_on|date:'d-m-Y H:i'}}
         Категории:
         {% for category in post.categories.all %}
-        <a href="{% url 'blog_details' post.pk %}">
+        <a href="{% url 'blog_category' post.pk %}">
             {{ category.name }}
         </a>
         {% endfor %}
