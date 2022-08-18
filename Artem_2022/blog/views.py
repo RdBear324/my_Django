@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from .models import Post, Category
+from .models import Post, Category, Comment
+from .forms import CommentForm
+
 # Create your views here.
 
 
@@ -13,8 +15,21 @@ def blog_index(request):
 
 def blog_detail(request, pk):
     post = Post.objects.get(pk=pk)
+
+    comments = post.posts.filter(active=True)
+
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+        else:
+            comment_form = CommentForm()
     context = {
-        'post': post
+        'post': post,
+        'comments': comments,
+        'comment_form': comment_form
     }
     return render(request, 'blog_details.html', context)
 
